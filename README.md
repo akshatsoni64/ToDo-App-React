@@ -1,4 +1,4 @@
-Guidance: https://youtu.be/nvHeB32ICDM
+Guidance: https://youtu.be/nvHeB32ICDM - Hitesh Choudhary(https://github.com/hiteshchoudhary)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
