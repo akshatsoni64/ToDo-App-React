@@ -11,13 +11,16 @@ class App extends React.Component {
       newItem: "",
       list: []
     };
+
+    this.onCheckedChange = this.onCheckedChange.bind(this);
   }
 
   addItem(todoValue) {
     if (todoValue !== "") {
       const newItem = {
         id: Date.now(),
-        value: todoValue
+        value: todoValue,
+        isDone:false
       };
       const list = [...this.state.list];
       list.push(newItem);
@@ -37,6 +40,20 @@ class App extends React.Component {
 
   updateInput(input) {
     this.setState({ newItem: input });
+  }
+
+  onCheckedChange(e){
+    const list = [...this.state.list];
+    list.map(item => {
+      if(item.value === e.target.name){
+        item.isDone = e.target.checked
+      }
+      return item.isDone
+    })
+    this.setState({
+      [e.target.name]: e.target.checked
+    })
+    console.log(list.filter(item => item.value === e.target.name));
   }
 
   render() {
@@ -63,16 +80,20 @@ class App extends React.Component {
             <center>
               <Table striped borderless width="1000" variant="dark">
                 <thead>
-                  <th>Name</th>
                   <th>Status</th>
+                  <th>Name</th>
+                  <th>Action</th>
                 </thead>
                 <tbody>
                   {this.state.list.map(item => {
                     return (
                       <tr key={item.id}>
+                        <td>
+                          <input type="checkbox" name={item.value} checked={item.isDone} value={item.id} onChange={this.onCheckedChange} />
+                        </td>
                         <td>{item.value}</td>
                         <td>
-                        <Button variant="danger" onClick={() => this.deleteItem(item.id)}>Done</Button>
+                          <Button variant="danger" onClick={() => this.deleteItem(item.id)}>Delete</Button>
                         </td>
                       </tr>
                     );
@@ -82,16 +103,6 @@ class App extends React.Component {
             </center>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  renderr() {
-    return (
-      <div className="App">              
-                 
-        
-        
       </div>
     );
   }
